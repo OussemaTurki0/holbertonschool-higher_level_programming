@@ -1,3 +1,5 @@
 #!/usr/bin/python3
-number = 98
-print(f"{number} Battery street")
+str1 = "Holberton"
+str2 = "School"
+str1 += " " + str2
+print("Welcome to {}!".format(str1))
