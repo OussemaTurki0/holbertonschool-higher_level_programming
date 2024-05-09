@@ -13,4 +13,3 @@ elif x == 0:
 elif x < 6 and x != 0:
     print("Last digit of {:d} is {:d}".format(number, x), end=" ")
     print("and is less than 6 and not 0")
-    
