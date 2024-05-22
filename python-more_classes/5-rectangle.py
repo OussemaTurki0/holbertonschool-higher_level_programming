@@ -3,6 +3,7 @@
 Rectangle module
 """
 
+
 class Rectangle:
     """
     Rectangle Class
@@ -11,6 +12,7 @@ class Rectangle:
         width (int): Private
         height (int): Private
     """
+
     def __init__(self, width=0, height=0):
         """
         Initialize Rectangle Class
