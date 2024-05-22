@@ -1,4 +1,13 @@
 #!/usr/bin/python3
+"""
+    Rectangle module
+
+    """
+
+
 class Rectangle:
-    """An empty Rectangle class"""
+    """
+        Rectangle Class
+
+        """
     pass
