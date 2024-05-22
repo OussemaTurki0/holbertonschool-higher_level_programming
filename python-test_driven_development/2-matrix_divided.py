@@ -1,36 +1,53 @@
-#!/usr/bin/python3
-"""
-Module Devide Matrix
-    """
+Module matrix_divided
+======================
 
+Using matrix_divided:
+divide each element of a matriz and return a new.
 
-def matrix_divided(matrix, div):
-    """
-        Devides all elements in matrix
+    >>> matrix_divided = __import__('2-matrix_divided').matrix_divided
 
-        Args:
-            matrix (list[list[int/float]]) : matrice
-            div (int/float) Devider
+Checking docstring for module:
+        >>> __import__('2-matrix_divided').__doc__ != None
+        True
 
-        Raise:
-            TypeError: div not int or float
-            TypeError: matix is not a list of list of number
-            ZeroDivisionError: Div is 0
+Check docstring for function:
+        >>> len(matrix_divided.__doc__) > 0
+        True
 
-        Return : New matrix Devided
+Should return new matrix:
+    >>> matrix = [[1, 2, 0], [4, 5, 5]]
+    >>> matrix_divided(matrix, 1)
+    [[1.0, 2.0, 0.0], [4.0, 5.0, 5.0]]
 
-        """
-    if type(div) not in [int, float]:
-        raise TypeError("div must be a number")
-    if div == 0:
-        raise ZeroDivisionError('division by zero')
-    if type(matrix) is not list or not all((type(l) is list)for l in matrix) \
-        or not all((isinstance(n, (int, float))for n in l)for l in matrix) \
-            or len(matrix[0]) == 0:
-        raise TypeError(
-                "matrix must be a matrix "
-                "(list of lists) of integers/floats")
-    l = len(matrix[0])
-    if not all((len(x) == l)for x in matrix):
-        raise TypeError("Each row of the matrix must have the same size")
-    return [list(map(lambda x: round(x / div, 2), r))for r in matrix]
+Divided by 0:
+    >>> matrix = [[1, 2, 0], [4, 5, 5]]
+    >>> matrix_divided(matrix, 0)
+    Traceback (most recent call last):
+    ...
+    ZeroDivisionError: division by zero
+
+Divided by 0 and diff lenght:
+    >>> matrix = [[1, 2, 0], [4, 5]]
+    >>> matrix_divided(matrix, 0)
+    Traceback (most recent call last):
+    ...
+    TypeError: Each row of the matrix must have the same size
+
+divided by decimal matriz:
+    >>> matrix = [[1, 2],[1, 3]]
+    >>> matrix_divided(matrix, 1.33333)
+    [[0.75, 1.5], [0.75, 2.25]]
+
+Checking divide with another type than int or float:
+    >>> matrix = [[1, 2],[1, 3]]
+    >>> matrix_divided(matrix, "Hello")
+    Traceback (most recent call last):
+    ...
+    TypeError: div must be a number
+
+Checking what happens when user pass tuple or set:
+    >>> matrix = [[1, 2], {1, 3}]
+    >>> matrix_divided(matrix, 5)
+    Traceback (most recent call last):
+    ...
+    TypeError: matrix must be a matrix (list of lists) of integers/floats
