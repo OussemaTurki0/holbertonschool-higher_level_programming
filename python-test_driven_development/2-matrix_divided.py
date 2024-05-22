@@ -1,53 +1,40 @@
-Module matrix_divided
-======================
+#!/usr/bin/python3
+"""Defines a matrix division function."""
 
-Using matrix_divided:
-divide each element of a matriz and return a new.
 
-    >>> matrix_divided = __import__('2-matrix_divided').matrix_divided
+def matrix_divided(matrix, div):
+    """Divide all elements of a matrix.
 
-Checking docstring for module:
-        >>> __import__('2-matrix_divided').__doc__ != None
-        True
+    Args:
+        matrix (list): A list of lists of ints or floats.
+        div (int/float): The divisor.
+    Raises:
+        TypeError: If the matrix contains non-numbers.
+        TypeError: If the matrix contains rows of different sizes.
+        TypeError: If div is not an int or float.
+        ZeroDivisionError: If div is 0.
+    Returns:
+        A new matrix representing the result of the division.
+    """
+    if (not isinstance(matrix, list) or matrix == [] or
+            not all(isinstance(row, list) for row in matrix) or
+            not all((isinstance(ele, int) or isinstance(ele, float))
+                    for ele in [num for row in matrix for num in row])):
+        raise TypeError("matrix must be a matrix (list of lists) of "
+                        "integers/floats")
 
-Check docstring for function:
-        >>> len(matrix_divided.__doc__) > 0
-        True
+    if not all(len(row) == len(matrix[0]) for row in matrix):
+        raise TypeError("Each row of the matrix must have the same size")
 
-Should return new matrix:
-    >>> matrix = [[1, 2, 0], [4, 5, 5]]
-    >>> matrix_divided(matrix, 1)
-    [[1.0, 2.0, 0.0], [4.0, 5.0, 5.0]]
+    if not isinstance(div, int) and not isinstance(div, float):
+        raise TypeError("div must be a number")
 
-Divided by 0:
-    >>> matrix = [[1, 2, 0], [4, 5, 5]]
-    >>> matrix_divided(matrix, 0)
-    Traceback (most recent call last):
-    ...
-    ZeroDivisionError: division by zero
+    if div == 0:
+        raise ZeroDivisionError("division by zero")
 
-Divided by 0 and diff lenght:
-    >>> matrix = [[1, 2, 0], [4, 5]]
-    >>> matrix_divided(matrix, 0)
-    Traceback (most recent call last):
-    ...
-    TypeError: Each row of the matrix must have the same size
+    return ([list(map(lambda x: round(x / div, 2), row)) for row in matrix])
 
-divided by decimal matriz:
-    >>> matrix = [[1, 2],[1, 3]]
-    >>> matrix_divided(matrix, 1.33333)
-    [[0.75, 1.5], [0.75, 2.25]]
+if __name__ == "__main__":
+    import doctest
 
-Checking divide with another type than int or float:
-    >>> matrix = [[1, 2],[1, 3]]
-    >>> matrix_divided(matrix, "Hello")
-    Traceback (most recent call last):
-    ...
-    TypeError: div must be a number
-
-Checking what happens when user pass tuple or set:
-    >>> matrix = [[1, 2], {1, 3}]
-    >>> matrix_divided(matrix, 5)
-    Traceback (most recent call last):
-    ...
-    TypeError: matrix must be a matrix (list of lists) of integers/floats
+    doctest.testfile("tests/2-matrix_divided.txt")
