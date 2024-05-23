@@ -1,0 +1,21 @@
+"""
+Tests for inherits_from function.
+
+This file contains tests to verify the behavior of the inherits_from function. It
+ensures that the function correctly identifies if an object is an instance of a
+class that inherited (directly or indirectly) from the specified class.
+
+Test Cases:
+1. Checking if a boolean is an instance of a class that inherited from int.
+2. Checking if a boolean is not an instance of a class that inherited from bool.
+3. Checking if a boolean is an instance of a class that inherited from object.
+"""
+>>> inherits_from = __import__('4-inherits_from').inherits_from
+
+>>> a = True
+>>> inherits_from(a, int)
+True
+>>> inherits_from(a, bool)
+False
+>>> inherits_from(a, object)
+True

@@ -1,0 +1,25 @@
+"""
+Tests for MyList class which inherits from list.
+
+This file contains tests to verify the behavior of the MyList class, specifically the
+print_sorted method. It ensures that the method sorts the list in ascending order and
+that the original list remains unchanged.
+
+Test Cases:
+1. Adding elements to the list and printing the sorted list.
+2. Verifying that the original list remains unsorted after calling print_sorted.
+"""
+>>> MyList = __import__('1-my_list').MyList
+
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(4)
+>>> my_list.append(2)
+>>> my_list.append(3)
+>>> my_list.append(5)
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+>>> my_list.print_sorted()
+[1, 2, 3, 4, 5]
+>>> print(my_list)
+[1, 4, 2, 3, 5]

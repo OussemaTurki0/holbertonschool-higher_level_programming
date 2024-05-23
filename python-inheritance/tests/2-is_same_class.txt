@@ -1,0 +1,21 @@
+"""
+Tests for is_same_class function.
+
+This file contains tests to verify the behavior of the is_same_class function. It
+ensures that the function correctly identifies if an object is an instance of a
+specified class.
+
+Test Cases:
+1. Checking if an integer is an instance of the int class.
+2. Checking if an integer is not an instance of the float class.
+3. Checking if an integer is not an instance of the object class.
+"""
+>>> is_same_class = __import__('2-is_same_class').is_same_class
+
+>>> a = 1
+>>> is_same_class(a, int)
+True
+>>> is_same_class(a, float)
+False
+>>> is_same_class(a, object)
+False

@@ -1,0 +1,21 @@
+"""
+Tests for is_kind_of_class function.
+
+This file contains tests to verify the behavior of the is_kind_of_class function. It
+ensures that the function correctly identifies if an object is an instance of, or
+if the object is an instance of a class that inherited from, the specified class.
+
+Test Cases:
+1. Checking if an integer is an instance of the int class.
+2. Checking if an integer is not an instance of the float class.
+3. Checking if an integer is an instance of the object class.
+"""
+>>> is_kind_of_class = __import__('3-is_kind_of_class').is_kind_of_class
+
+>>> a = 1
+>>> is_kind_of_class(a, int)
+True
+>>> is_kind_of_class(a, float)
+False
+>>> is_kind_of_class(a, object)
+True
