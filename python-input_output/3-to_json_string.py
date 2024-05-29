@@ -10,8 +10,7 @@ JSON representation.
 import json
 
 
-def to_json_string(my_obj):
-    """
+def to_json_string(my
     Converts a Python object to a JSON string.
 
     Args:
