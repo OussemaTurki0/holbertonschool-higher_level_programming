@@ -11,15 +11,7 @@ def serialize_to_xml(dictionary, filename):
     Returns:
     None
     """
-    root = ET.Element("data")
-    
-    for key, value in dictionary.items():
-        item = ET.SubElement(root, key)
-        item.text = str(value)
-    
-    tree = ET.ElementTree(root)
-    tree.write(filename)
-
+ 
 def deserialize_from_xml(filename):
     """
     Deserializes XML data from a file into a Python dictionary.
@@ -56,4 +48,6 @@ if __name__ == "__main__":
     print(f"Dictionary serialized to {xml_file}")
 
     deserialized_data = deserialize_from_xml(xml_file)
-
+    if deserialized_data:
+        print("\nDeserialized Data:")
+        print(deserialized_data)
