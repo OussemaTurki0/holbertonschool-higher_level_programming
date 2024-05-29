@@ -47,4 +47,13 @@ def deserialize_from_xml(filename):
 if __name__ == "__main__":
     sample_dict = {
         'name': 'John',
-    
+        'age': '28',
+        'city': 'New York'
+    }
+
+    xml_file = "data.xml"
+    serialize_to_xml(sample_dict, xml_file)
+    print(f"Dictionary serialized to {xml_file}")
+
+    deserialized_data = deserialize_from_xml(xml_file)
+
