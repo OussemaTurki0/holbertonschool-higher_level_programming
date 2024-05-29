@@ -14,7 +14,8 @@ def write_file(filename="", text=""):
     Args:
         filename (str): The name of the file to write to. Defaults to an
                         empty string.
-
+        text (str): The text to write to the file. Defaults to an empty
+                    string.
 
     Returns:
         int: The length of the text written to the file.
