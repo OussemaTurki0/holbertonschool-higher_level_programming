@@ -21,7 +21,7 @@ def load_from_json_file(filename):
 
     Raises:
         IOError: If an I/O error occurs while reading the file.
-        json.JSONDecodeError: If the file content is not valid JSON.
+        json.deError: If the file content is not valid JSON.
     """
     with open(filename, "r") as file:
         return json.load(file)
