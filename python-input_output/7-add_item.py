@@ -38,8 +38,7 @@ def load_from_json_file(filename):
         json.JSONDecodeError: If the file content is not valid JSON.
     """
 
-    if not os.path.exists(filename):
-        return []
+    if not os.path.exists
 
     with open(filename, "r") as file:
         try:
