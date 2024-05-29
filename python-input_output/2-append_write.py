@@ -7,7 +7,7 @@ the text to the end of the file, and returns the length of the text appended.
 """
 
 
-def append_write(filename="", text=""):
+def append_write(filename="", tex""):
     """
     Appends the given text to the specified file and returns the number of
     characters appended.
