@@ -22,8 +22,7 @@ def read_file(filename=""):
     """
     # Open the file in read mode
     with open(filename, "r") as file:
-        # Read the entire content of the file
-        file_content = file.read()
+
 
     # Print the file content, end="" ensures no additional newline is added
     print(file_content, end="")
