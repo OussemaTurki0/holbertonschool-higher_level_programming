@@ -1,5 +1,4 @@
 -- 8-cities_of_california.sql
--- List all cities of California
 USE hbtn_0d_usa;
 SELECT cities.name
 FROM cities
