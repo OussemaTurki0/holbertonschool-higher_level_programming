@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Products List</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <h1>Products List</h1>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }} - ${{ product.price }}</li>
