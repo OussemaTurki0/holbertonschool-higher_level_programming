@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 from pathlib import Path
 import json
 import csv
@@ -15,69 +15,72 @@ def home():
 def items():
     items_list = []
 
-    with open("items.json", 'r') as f:
-        rows = json.load(f)
-    for key,value in rows.items():
-        items_list = value
+    try:
+        with open("items.json", 'r') as f:
+            rows = json.load(f)
+        for key, value in rows.items():
+            items_list.extend(value)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        abort(500, description=f"Error loading items: {e}")
 
     return render_template('items.html', items=items_list)
 
 @app.route('/products')
 def products():
     source = request.args.get('source')
+    if not source:
+        abort(400, description="Missing 'source' parameter")
+    
     id = request.args.get('id')
 
     data = []
-    if source == "json":
-        data = load_json_data("products.json", id)
-    elif source == "csv":
-        data = load_csv_data("products.csv", id)
+    try:
+        if source == "json":
+            data = load_json_data("products.json", id)
+        elif source == "csv":
+            data = load_csv_data("products.csv", id)
+        else:
+            abort(400, description="Invalid 'source' parameter")
+    except (FileNotFoundError, ValueError) as e:
+        abort(500, description=f"Error loading products: {e}")
 
     return render_template('product_display.html', data=data, source=source, id=id)
 
-def load_json_data(filename, wanted_id = None):
-    """ Load JSON data from file and returns as dictionary """
-
-    data = []
+def load_json_data(filename, wanted_id=None):
+    """ Load JSON data from file and returns as a list of dictionaries """
 
     if not Path(filename).is_file():
-        raise FileNotFoundError("Data file '{}' missing".format(filename))
+        raise FileNotFoundError(f"Data file '{filename}' missing")
 
+    data = []
     try:
         with open(filename, 'r') as f:
             rows = json.load(f)
 
         for row in rows:
-            # Typecast!!!!!!!
             key = str(row['id'])
+            if wanted_id is None or key == wanted_id:
+                data.append(row)
 
-            if (wanted_id is not None and key == wanted_id) or (wanted_id is None):
-                product = {}
-                for k,v in row.items():
-                    product[k] = v
-                data.append(product)
-
-    except ValueError as exc:
-        raise ValueError("Unable to load data from file '{}'".format(filename)) from exc
+    except (FileNotFoundError, json.JSONDecodeError) as exc:
+        raise ValueError(f"Unable to load data from file '{filename}'") from exc
 
     return data
 
-def load_csv_data(filename, wanted_id = None):
-    """ Load JSON data from file and returns as dictionary """
-
-    data = []
+def load_csv_data(filename, wanted_id=None):
+    """ Load CSV data from file and returns as a list of dictionaries """
 
     if not Path(filename).is_file():
-        raise FileNotFoundError("Data file '{}' missing".format(filename))
+        raise FileNotFoundError(f"Data file '{filename}' missing")
 
+    data = []
     try:
         with open(filename, 'r') as csvfile:
-            # using DictReader method to convert each row to a dictionary
             for row in csv.DictReader(csvfile):
-                if (wanted_id is not None and row['id'] == wanted_id) or (wanted_id is None):
+                if wanted_id is None or row['id'] == wanted_id:
                     data.append(row)
-    except ValueError as exc:
-        raise ValueError("Unable to load data from file '{}'".format(filename)) from exc
+    except csv.Error as exc:
+        raise ValueError(f"Unable to load data from file '{filename}'") from exc
 
     return data
 
